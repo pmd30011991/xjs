@@ -3,7 +3,6 @@ X.v3 = function ( x, y, z ) {
 	this.x = x || 0;
 	this.y = y || 0;
 	this.z = z || 0;
-	X.extend(X.m4,X.m4.prototype);
 };
 
 
@@ -322,3 +321,4 @@ X.v3.prototype = {
 	}
 
 };
+X.extend(X.v3);
