@@ -1,324 +1,316 @@
-X.v3 = function ( x, y, z ) {
+X.extend({
+	v3: function(x,y,z){
+		var v3 = function(){
+			this.x = x || 0;
+			this.y = y || 0;
+			this.z = z || 0;
+		};
+		v3.prototype = {
+				constructor: v3,
 
-	this.x = x || 0;
-	this.y = y || 0;
-	this.z = z || 0;
-};
+				set: function ( x, y, z ) {
 
+					this.x = x;
+					this.y = y;
+					this.z = z;
 
-X.v3.prototype = {
+					return this;
 
-	constructor: X.v3,
+				},
 
-	set: function ( x, y, z ) {
+				setX: function ( x ) {
 
-		this.x = x;
-		this.y = y;
-		this.z = z;
+					this.x = x;
 
-		return this;
+					return this;
 
-	},
+				},
 
-	setX: function ( x ) {
+				setY: function ( y ) {
 
-		this.x = x;
+					this.y = y;
 
-		return this;
+					return this;
 
-	},
+				},
 
-	setY: function ( y ) {
+				setZ: function ( z ) {
 
-		this.y = y;
+					this.z = z;
 
-		return this;
+					return this;
 
-	},
+				},
 
-	setZ: function ( z ) {
+				copy: function ( v ) {
 
-		this.z = z;
+					this.x = v.x;
+					this.y = v.y;
+					this.z = v.z;
 
-		return this;
+					return this;
 
-	},
+				},
 
-	copy: function ( v ) {
+				add: function ( a, b ) {
 
-		this.x = v.x;
-		this.y = v.y;
-		this.z = v.z;
+					this.x = a.x + b.x;
+					this.y = a.y + b.y;
+					this.z = a.z + b.z;
 
-		return this;
+					return this;
 
-	},
+				},
 
-	add: function ( a, b ) {
+				addSelf: function ( v ) {
 
-		this.x = a.x + b.x;
-		this.y = a.y + b.y;
-		this.z = a.z + b.z;
+					this.x += v.x;
+					this.y += v.y;
+					this.z += v.z;
 
-		return this;
+					return this;
 
-	},
+				},
 
-	addSelf: function ( v ) {
+				addScalar: function ( s ) {
 
-		this.x += v.x;
-		this.y += v.y;
-		this.z += v.z;
+					this.x += s;
+					this.y += s;
+					this.z += s;
 
-		return this;
+					return this;
 
-	},
+				},
 
-	addScalar: function ( s ) {
+				sub: function ( a, b ) {
 
-		this.x += s;
-		this.y += s;
-		this.z += s;
+					this.x = a.x - b.x;
+					this.y = a.y - b.y;
+					this.z = a.z - b.z;
 
-		return this;
+					return this;
 
-	},
+				},
 
-	sub: function ( a, b ) {
+				subSelf: function ( v ) {
 
-		this.x = a.x - b.x;
-		this.y = a.y - b.y;
-		this.z = a.z - b.z;
+					this.x -= v.x;
+					this.y -= v.y;
+					this.z -= v.z;
 
-		return this;
+					return this;
 
-	},
+				},
 
-	subSelf: function ( v ) {
+				multiply: function ( a, b ) {
 
-		this.x -= v.x;
-		this.y -= v.y;
-		this.z -= v.z;
+					this.x = a.x * b.x;
+					this.y = a.y * b.y;
+					this.z = a.z * b.z;
 
-		return this;
+					return this;
 
-	},
+				},
 
-	multiply: function ( a, b ) {
+				multiplySelf: function ( v ) {
 
-		this.x = a.x * b.x;
-		this.y = a.y * b.y;
-		this.z = a.z * b.z;
+					this.x *= v.x;
+					this.y *= v.y;
+					this.z *= v.z;
 
-		return this;
+					return this;
 
-	},
+				},
 
-	multiplySelf: function ( v ) {
+				multiplyScalar: function ( s ) {	// nhan voi he so ty le vector
 
-		this.x *= v.x;
-		this.y *= v.y;
-		this.z *= v.z;
+					this.x *= s;
+					this.y *= s;
+					this.z *= s;
 
-		return this;
+					return this;
 
-	},
+				},
 
-	multiplyScalar: function ( s ) {	// nhan voi he so ty le vector
+				divideSelf: function ( v ) {
 
-		this.x *= s;
-		this.y *= s;
-		this.z *= s;
+					this.x /= v.x;
+					this.y /= v.y;
+					this.z /= v.z;
 
-		return this;
+					return this;
 
-	},
+				},
 
-	divideSelf: function ( v ) {
+				divideScalar: function ( s ) {
 
-		this.x /= v.x;
-		this.y /= v.y;
-		this.z /= v.z;
+					if ( s ) {
 
-		return this;
+						this.x /= s;
+						this.y /= s;
+						this.z /= s;
 
-	},
+					} else {
 
-	divideScalar: function ( s ) {
+						this.x = 0;
+						this.y = 0;
+						this.z = 0;
 
-		if ( s ) {
+					}
 
-			this.x /= s;
-			this.y /= s;
-			this.z /= s;
+					return this;
 
-		} else {
+				},
 
-			this.x = 0;
-			this.y = 0;
-			this.z = 0;
 
-		}
+				negate: function() {
 
-		return this;
+					return this.multiplyScalar( - 1 );
 
-	},
+				},
 
+				dot: function ( v ) {	// dinh thuc
 
-	negate: function() {
+					return this.x * v.x + this.y * v.y + this.z * v.z;
 
-		return this.multiplyScalar( - 1 );
+				},
 
-	},
+				lengthSq: function () {
 
-	dot: function ( v ) {	// dinh thuc
+					return this.x * this.x + this.y * this.y + this.z * this.z;
 
-		return this.x * v.x + this.y * v.y + this.z * v.z;
+				},
 
-	},
+				length: function () {
 
-	lengthSq: function () {
+					return Math.sqrt( this.lengthSq() );
 
-		return this.x * this.x + this.y * this.y + this.z * this.z;
+				},
+				normalize: function () {	// chuan hoa bang cach chia tich vo huong
 
-	},
+					return this.divideScalar( this.length() );
 
-	length: function () {
+				},
 
-		return Math.sqrt( this.lengthSq() );
+				setLength: function ( l ) {
 
-	},
+					return this.normalize().multiplyScalar( l );
 
-	lengthManhattan: function () {
+				},
 
-		return Math.abs( this.x ) + Math.abs( this.y ) + Math.abs( this.z );
+				lerpSelf: function ( v, alpha ) {
 
-	},
+					this.x += ( v.x - this.x ) * alpha;
+					this.y += ( v.y - this.y ) * alpha;
+					this.z += ( v.z - this.z ) * alpha;
 
-	normalize: function () {	// chuan hoa bang cach chia tich vo huong
+					return this;
 
-		return this.divideScalar( this.length() );
+				},
 
-	},
+				cross: function ( a, b ) {
 
-	setLength: function ( l ) {
+					this.x = a.y * b.z - a.z * b.y;
+					this.y = a.z * b.x - a.x * b.z;
+					this.z = a.x * b.y - a.y * b.x;
 
-		return this.normalize().multiplyScalar( l );
+					return this;
 
-	},
+				},
 
-	lerpSelf: function ( v, alpha ) {
+				crossSelf: function ( v ) {
 
-		this.x += ( v.x - this.x ) * alpha;
-		this.y += ( v.y - this.y ) * alpha;
-		this.z += ( v.z - this.z ) * alpha;
+					var x = this.x, y = this.y, z = this.z;
 
-		return this;
+					this.x = y * v.z - z * v.y;
+					this.y = z * v.x - x * v.z;
+					this.z = x * v.y - y * v.x;
 
-	},
+					return this;
 
-	cross: function ( a, b ) {
+				},
 
-		this.x = a.y * b.z - a.z * b.y;
-		this.y = a.z * b.x - a.x * b.z;
-		this.z = a.x * b.y - a.y * b.x;
+				distanceTo: function ( v ) {
 
-		return this;
+					return Math.sqrt( this.distanceToSquared( v ) );
 
-	},
+				},
 
-	crossSelf: function ( v ) {
+				distanceToSquared: function ( v ) {
 
-		var x = this.x, y = this.y, z = this.z;
+					return new THREE.Vector3().sub( this, v ).lengthSq();
 
-		this.x = y * v.z - z * v.y;
-		this.y = z * v.x - x * v.z;
-		this.z = x * v.y - y * v.x;
+				},
 
-		return this;
+				getPositionFromMatrix: function ( m ) {
 
-	},
+					this.x = m.elements[12];
+					this.y = m.elements[13];
+					this.z = m.elements[14];
 
-	distanceTo: function ( v ) {
+					return this;
 
-		return Math.sqrt( this.distanceToSquared( v ) );
+				},
 
-	},
+				getRotationFromMatrix: function ( m, scale ) {
+				
+					var sx = scale ? scale.x : 1;
+					var sy = scale ? scale.y : 1;
+					var sz = scale ? scale.z : 1;
 
-	distanceToSquared: function ( v ) {
+					var m11 = m.elements[0] / sx, m12 = m.elements[4] / sy, m13 = m.elements[8] / sz;
+					var m21 = m.elements[1] / sx, m22 = m.elements[5] / sy, m23 = m.elements[9] / sz;
+					var m33 = m.elements[10] / sz;
 
-		return new THREE.Vector3().sub( this, v ).lengthSq();
+					this.y = Math.asin( m13 );
 
-	},
+					var cosY = Math.cos( this.y );
 
-	getPositionFromMatrix: function ( m ) {
+					if ( Math.abs( cosY ) > 0.00001 ) {
 
-		this.x = m.elements[12];
-		this.y = m.elements[13];
-		this.z = m.elements[14];
+						this.x = Math.atan2( - m23 / cosY, m33 / cosY );
+						this.z = Math.atan2( - m12 / cosY, m11 / cosY );
 
-		return this;
+					} else {
 
-	},
+						this.x = 0;
+						this.z = Math.atan2( m21, m22 );
 
-	getRotationFromMatrix: function ( m, scale ) {
-	
-		var sx = scale ? scale.x : 1;
-		var sy = scale ? scale.y : 1;
-		var sz = scale ? scale.z : 1;
+					}
 
-		var m11 = m.elements[0] / sx, m12 = m.elements[4] / sy, m13 = m.elements[8] / sz;
-		var m21 = m.elements[1] / sx, m22 = m.elements[5] / sy, m23 = m.elements[9] / sz;
-		var m33 = m.elements[10] / sz;
+					return this;
 
-		this.y = Math.asin( m13 );
+				},
+				getScaleFromMatrix: function ( m ) {
 
-		var cosY = Math.cos( this.y );
+					var sx = this.set( m.elements[0], m.elements[1], m.elements[2] ).length();
+					var sy = this.set( m.elements[4], m.elements[5], m.elements[6] ).length();
+					var sz = this.set( m.elements[8], m.elements[9], m.elements[10] ).length();
 
-		if ( Math.abs( cosY ) > 0.00001 ) {
+					this.x = sx;
+					this.y = sy;
+					this.z = sz;
 
-			this.x = Math.atan2( - m23 / cosY, m33 / cosY );
-			this.z = Math.atan2( - m12 / cosY, m11 / cosY );
+				},
 
-		} else {
+				equals: function ( v ) {
 
-			this.x = 0;
-			this.z = Math.atan2( m21, m22 );
+					return ( ( v.x === this.x ) && ( v.y === this.y ) && ( v.z === this.z ) );
 
-		}
+				},
 
-		return this;
+				isZero: function () {
 
-	},
-	getScaleFromMatrix: function ( m ) {
+					return ( this.lengthSq() < 0.0001 /* almostZero */ );
 
-		var sx = this.set( m.elements[0], m.elements[1], m.elements[2] ).length();
-		var sy = this.set( m.elements[4], m.elements[5], m.elements[6] ).length();
-		var sz = this.set( m.elements[8], m.elements[9], m.elements[10] ).length();
+				},
 
-		this.x = sx;
-		this.y = sy;
-		this.z = sz;
+				clone: function () {
 
-	},
+					return new X.v3( this.x, this.y, this.z );
 
-	equals: function ( v ) {
-
-		return ( ( v.x === this.x ) && ( v.y === this.y ) && ( v.z === this.z ) );
-
-	},
-
-	isZero: function () {
-
-		return ( this.lengthSq() < 0.0001 /* almostZero */ );
-
-	},
-
-	clone: function () {
-
-		return new X.v3( this.x, this.y, this.z );
-
+				}
+		};
+		return new v3();
 	}
-
-};
-X.extend(X.v3);
+});
