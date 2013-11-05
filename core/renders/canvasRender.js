@@ -12,7 +12,9 @@ X.extend({
 			renderer = {
 				render: function(){
 					console.log("rendering");
-					var colorStep1 = 0;
+					
+					
+					/*var colorStep1 = 0;
 					var colorStep2 = 0;
 					var colorStep3 = 0;
 					var countStep = 0;
@@ -62,7 +64,7 @@ X.extend({
 						    
 						    countStep++;
 							step +=1;
-						},1);
+						},1);*/
 						
 						
 						

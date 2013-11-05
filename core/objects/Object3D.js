@@ -15,7 +15,7 @@
 	}
 	X.Object3D.prototype={
 		constructor: X.Object3D,
-		applyMatrix: function(m4)		// ap dung ma tran cho Object3D này
+		applyMatrix: function(m4)	// ap dung ma tran cho Object3D này
 		{
 			this.matrix.multiply(m4,this.maxtrix);	// o day chung ta thuc hien nhan ma tran de chuyen doi he truc toa do
 			this.scale.getScaleFormMatrix(this.matrix); // lay vector ti le tu ma tran duoc cho
