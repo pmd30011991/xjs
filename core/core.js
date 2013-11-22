@@ -32,5 +32,10 @@
 		this[x] = opts[x];
 		return this;
 	};
+	X.inherit = X.fn.inherit = function(src,des){
+		for(var x in src){
+			des[x] = src[x];
+		}
+	};
 	window.X = X;
 })(window);

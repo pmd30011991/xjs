@@ -5,4 +5,4 @@
 X.Objects3D.Line = function(sv,ev) {
 	X.Object3D.call(this);
 	
-} 
+} ;

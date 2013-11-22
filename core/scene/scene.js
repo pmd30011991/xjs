@@ -5,7 +5,7 @@ X.scene = function(){
 	this.matrixAutoUpdate = false;
 	this.objects = [];	// cac obj cua user them vao
 	this.cameraActived = null;
-}
+};
 X.scene.prototype ={
 	addCamera : function(o)
 	{
@@ -16,4 +16,4 @@ X.scene.prototype ={
 		}
 	},
 	
-}
+};
