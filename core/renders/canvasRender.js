@@ -18,38 +18,42 @@ X.extend({
 					    var depth = f - n;
 					   var m4 = _m4.set( (2*n)/(r-l), 0, (r+l)/(r-l), 0,
 				                         0, (2*n)/(t-b),(t+b)/(t-b), 0,
-				                         0, 0, -(f+n)/depth, -2*(f*n)/depth,
+				                         0, 0, -(f+n)/depth, -(2*f*n)/depth,
 				                         0, 0, -1, 0);
 					  return m4;
-					};
+					}; 
 					
 					
-					var rotate = 0.001;
+					var rotate = 0;
+					a = 0.001;
+					zoom = 100 ;
 					setInterval(function(){
 						ctx.clearRect(0, 0, canvas.width, canvas.height);
 						//var rec = window.rec = X.Rectangle(X.v3(-1,1,2),X.v3(1,-1,2));
-						var rec = X.kimtuthap(X.v3(-1,0,0),
-											  X.v3(0,0,1),
-											  X.v3(1,0,0),
-											  X.v3(0,1,0));
-						var projectMatrix = MatrixPerspective(0,500,0,400,1,-1000);
+						var rec = X.kimtuthap(X.v3(-0.5,0,-0.5),
+											  X.v3(0,0,0.5),
+											  X.v3(0.5,0,-0.5),
+											  X.v3(0,0.5,0));
+						var projectMatrix = MatrixPerspective(0,500,0,400,1,1000);
 						var worldMatrix = X.m4();
 						var viewMatrix = X.camera({
-							eye: X.v3(30,20,0),
-							lootAt: X.v3(0,0,0)
+							eye: X.v3(1,0,0),
+							lookAt: X.v3(0,0,0)
 						}).makeCameraMatrix();
 						
 						worldMatrix.rotateX(rotate);
 						worldMatrix.rotateY(rotate);
 						worldMatrix.rotateZ(rotate);
-						worldMatrix.scale(X.v3(50,50,0));
-						worldMatrix.setPosition(X.v3(100,100,0));
+						worldMatrix.scale(X.v3(zoom,zoom,zoom));
+						worldMatrix.setPosition(X.v3(500/2,400/2,0));
+						//worldMatrix.translate(X.v3(200,200,0));
 						//worldMatrix.multiplySelf(viewMatrix);
-						worldMatrix.multiplySelf(projectMatrix);
-						rec.applyMatrix(worldMatrix);
-						rotate+=0.05;
+						//worldMatrix.multiplySelf(projectMatrix);
+						
+						rec.update(worldMatrix);
+						rotate+= a;
 						rec.draw(ctx);
-					},100);
+					},10);
 					//rec.setPosition(X.v3(100,100,1));
 					/*var deg =0;
 					setInterval(function(){

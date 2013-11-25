@@ -1,8 +1,8 @@
 X.extend({
 	camera: function(params){
 		var c = function(){
-			this.eye = X.v3(params.eye);
-			this.lootAt = X.v3(params.lookAt);
+			this.eye = params.eye;
+			this.lootAt = params.lookAt;
 			this.u = X.v3();
 			this.v = X.v3();
 			this.w = X.v3();
